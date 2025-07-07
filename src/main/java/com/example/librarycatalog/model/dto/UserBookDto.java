@@ -25,15 +25,9 @@ public class UserBookDto {
 
     private String notes;
 
-    // Book və User məlumatları
     private String bookTitle;
     private String bookAuthor;
     private String userName;
 
-    // Xüsusi konstruktor (əgər saxlanılacaqsa)
-    public UserBookDto(Long userId, Long bookId, ReadingStatus status) {
-        this.userId = userId;
-        this.bookId = bookId;
-        this.status = status;
-    }
+
 }

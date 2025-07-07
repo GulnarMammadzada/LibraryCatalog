@@ -29,9 +29,5 @@ public class BookDto {
 
     private String description;
 
-    // İstəyə bağlı: xüsusi konstruktor saxlanılıb
-    public BookDto(String title, String author) {
-        this.title = title;
-        this.author = author;
-    }
+
 }

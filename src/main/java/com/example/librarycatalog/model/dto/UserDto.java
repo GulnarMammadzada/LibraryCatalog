@@ -26,11 +26,5 @@ public class UserDto {
     @Size(min = 6, message = "Şifrə ən azı 6 simvol olmalıdır")
     private String password;
 
-    // İstəyə bağlı: xüsusi konstruktor saxlanılıb
-    public UserDto(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-    }
+
 }

@@ -45,10 +45,4 @@ public class UserBook {
         addedAt = LocalDateTime.now();
     }
 
-    // Xüsusi konstruktor – əgər istifadə edirsənsə, saxla
-    public UserBook(User user, Book book, ReadingStatus status) {
-        this.user = user;
-        this.book = book;
-        this.status = status;
-    }
 }

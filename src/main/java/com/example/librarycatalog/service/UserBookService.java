@@ -1,6 +1,7 @@
 package com.example.librarycatalog.service;
 
 import com.example.librarycatalog.model.dto.UserBookDto;
+import com.example.librarycatalog.model.dto.UserWithBooksDto;
 import com.example.librarycatalog.model.entity.Book;
 import com.example.librarycatalog.model.entity.User;
 import com.example.librarycatalog.model.entity.UserBook;
@@ -16,14 +17,20 @@ import java.util.ArrayList;
 @Service
 public class UserBookService {
 
-    @Autowired
-    private UserBookRepository userBookRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserBookRepository userBookRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
+
+    private final UserRepository userRepository;
+
+
+    private final BookRepository bookRepository;
+
+    public UserBookService(UserBookRepository userBookRepository, UserRepository userRepository, BookRepository bookRepository) {
+        this.userBookRepository = userBookRepository;
+        this.userRepository = userRepository;
+        this.bookRepository = bookRepository;
+    }
 
     public UserBookDto addBookToUser(UserBookDto userBookDto) {
         User user = userRepository.findById(userBookDto.getUserId()).orElse(null);
@@ -65,6 +72,41 @@ public class UserBookService {
         return userBookDtos;
     }
 
+    public List<UserWithBooksDto> getAllUsersWithBooks() {
+        List<User> users = userRepository.findAll();
+        List<UserWithBooksDto> result = new ArrayList<>();
+
+        for (User user : users) {
+            List<UserBook> userBooks = userBookRepository.findByUserId(user.getId());
+            List<UserBookDto> bookDtos = new ArrayList<>();
+
+            for (UserBook userBook : userBooks) {
+                UserBookDto dto = new UserBookDto();
+                dto.setId(userBook.getId());
+                dto.setUserId(user.getId());
+                dto.setBookId(userBook.getBook().getId());
+                dto.setStatus(userBook.getStatus());
+                dto.setRating(userBook.getRating());
+                dto.setNotes(userBook.getNotes());
+
+                dto.setBookTitle(userBook.getBook().getTitle());
+                dto.setBookAuthor(userBook.getBook().getAuthor());
+                dto.setUserName(user.getFirstName() + " " + user.getLastName());
+
+                bookDtos.add(dto);
+            }
+
+            UserWithBooksDto userDto = new UserWithBooksDto();
+            userDto.setUserId(user.getId());
+            userDto.setUserName(user.getFirstName() + " " + user.getLastName());
+            userDto.setBooks(bookDtos);
+
+            result.add(userDto);
+        }
+
+        return result;
+    }
+
     public UserBookDto getUserBookById(Long id) {
         UserBook userBook = userBookRepository.findById(id).orElse(null);
         if (userBook != null) {
@@ -103,7 +145,6 @@ public class UserBookService {
         dto.setRating(userBook.getRating());
         dto.setNotes(userBook.getNotes());
 
-        // Əlavə məlumatlar
         dto.setBookTitle(userBook.getBook().getTitle());
         dto.setBookAuthor(userBook.getBook().getAuthor());
         dto.setUserName(userBook.getUser().getFirstName() + " " + userBook.getUser().getLastName());

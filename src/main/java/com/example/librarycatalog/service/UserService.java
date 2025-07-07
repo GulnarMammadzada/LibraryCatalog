@@ -1,8 +1,13 @@
 package com.example.librarycatalog.service;
 
 
+import com.example.librarycatalog.model.dto.UserBookDto;
 import com.example.librarycatalog.model.dto.UserDto;
+import com.example.librarycatalog.model.entity.Book;
 import com.example.librarycatalog.model.entity.User;
+import com.example.librarycatalog.model.entity.UserBook;
+import com.example.librarycatalog.repository.BookRepository;
+import com.example.librarycatalog.repository.UserBookRepository;
 import com.example.librarycatalog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +17,13 @@ import java.util.ArrayList;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
 
     public UserDto createUser(UserDto userDto) {
         User user = new User();
@@ -83,7 +93,9 @@ public class UserService {
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setEmail(user.getEmail());
-        // Şifrəni dto-da göstərmirik
         return dto;
     }
+
+
+
 }

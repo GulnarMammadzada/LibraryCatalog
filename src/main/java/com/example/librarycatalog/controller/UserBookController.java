@@ -1,6 +1,7 @@
 package com.example.librarycatalog.controller;
 
 import com.example.librarycatalog.model.dto.UserBookDto;
+import com.example.librarycatalog.model.dto.UserWithBooksDto;
 import com.example.librarycatalog.model.enumeration.ReadingStatus;
 import com.example.librarycatalog.service.UserBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users/{userId}/books")
+@RequestMapping("/api/userbooks")
 @CrossOrigin(origins = "http://localhost:8080")
 public class UserBookController {
 
@@ -22,14 +23,11 @@ public class UserBookController {
     }
 
     @PostMapping
-    public ResponseEntity<UserBookDto> addBookToUser(@PathVariable Long userId, @Valid @RequestBody UserBookDto userBookDto) {
-        userBookDto.setUserId(userId);
+    public ResponseEntity<UserBookDto> addBookToUser(@Valid @RequestBody UserBookDto userBookDto) {
         UserBookDto createdUserBook = userBookService.addBookToUser(userBookDto);
-        if (createdUserBook != null) {
-            return ResponseEntity.ok(createdUserBook);
-        }
-        return ResponseEntity.badRequest().build();
+        return createdUserBook != null ? ResponseEntity.ok(createdUserBook) : ResponseEntity.badRequest().build();
     }
+
 
     @GetMapping
     public ResponseEntity<List<UserBookDto>> getUserBooks(@PathVariable Long userId,
@@ -71,4 +69,9 @@ public class UserBookController {
         }
         return ResponseEntity.notFound().build();
     }
+    @GetMapping("/with-users")
+    public ResponseEntity<List<UserWithBooksDto>> getUsersWithBooks() {
+        return ResponseEntity.ok(userBookService.getAllUsersWithBooks());
+    }
+
 }
