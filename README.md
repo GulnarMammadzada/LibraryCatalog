@@ -1,20 +1,20 @@
-# Kitabxana Kataloqu Tətbiqi
+# Library Catalog Application
 
-Java Backend Developer təliminin 4-cü ayı çərçivəsində hazırlanmış full-stack veb tətbiqidir.
+This is a full-stack web application developed during the 4th month of the Java Backend Developer training program.
 
-## Layihənin məqsədi
+## Project Purpose
 
-Bu tətbiq istifadəçilərə kitab əlavə etmək, oxuma vəziyyətini izləmək, kitabları qiymətləndirmək və şəxsi qeydlər əlavə etmək imkanı yaradır. Həm administrator, həm də adi istifadəçilər üçün istifadəsi rahatdır.
+The application allows users to add books, track reading progress, rate books, and add personal notes. It is designed to be user-friendly for both administrators and regular users.
 
-## Əsas xüsusiyyətlər
+## Key Features
 
-- İstifadəçi və kitabların əlavə olunması, yenilənməsi və silinməsi
-- Kitabların oxuma vəziyyətinin idarə edilməsi (Oxunacaq, Oxunur, Oxunub)
-- Kitablara reytinq və şəxsi qeydlər əlavə etmək
-- Vəziyyətə görə kitabların qruplaşdırılması və vizual göstərilməsi
-- Responsive və dinamik frontend interfeysi
+- Adding, updating, and deleting users and books
+- Managing reading status of books (To Read, Reading, Read)
+- Adding ratings and personal notes to books
+- Grouping books by reading status and displaying them visually
+- Responsive and dynamic frontend interface
 
-## Texnologiyalar
+## Technologies
 
 - Spring Boot
 - Spring Data JPA
